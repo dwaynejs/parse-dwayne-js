@@ -35,14 +35,20 @@ module.exports = (code, options) => {
       ]
     });
   } catch (err) {
-    const pos = err.pos;
-
     /* istanbul ignore if */
-    if (typeof pos !== 'number') {
+    if (typeof err.pos !== 'number') {
       throw err;
     }
 
-    throw new Error(`Syntax error in expression: ${ JSON.stringify(code) } at pos: ${ pos - 1 }!`);
+    err.pos = err.pos - 1;
+    err.loc = {
+      line: err.loc.line,
+      column: err.loc.line === 1
+        ? err.loc.column - 1
+        : err.loc.column
+    };
+
+    throw err;
   }
 
   let uid = '_';

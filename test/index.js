@@ -44,10 +44,35 @@ describe('transform', () => {
     });
   });
 
-  it('should throw a syntax error', () => {
-    throws(() => {
+  it('should throw a syntax error in the first line', (done) => {
+    try {
       transformJs('a + *', { filename: 'index.js' });
-    }, /Syntax error in expression: "a \+ \*" at pos: 4!/);
+
+      done(new Error('Not thrown'));
+    } catch (err) {
+      strictEqual(err.pos, 4);
+      deepStrictEqual(err.loc, {
+        line: 1,
+        column: 4
+      });
+
+      done();
+    }
+  });
+  it('should throw a syntax error in other line', (done) => {
+    try {
+      transformJs('() => (\na + *\n)', { filename: 'index.js' });
+
+      done(new Error('Not thrown'));
+    } catch (err) {
+      strictEqual(err.pos, 12);
+      deepStrictEqual(err.loc, {
+        line: 2,
+        column: 4
+      });
+
+      done();
+    }
   });
 
   it('should return null sourceMap if the options is false', () => {
