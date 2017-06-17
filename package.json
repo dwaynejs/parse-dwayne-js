@@ -1,6 +1,6 @@
 {
   "name": "transform-dwayne-js-expressions",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "main": "lib/index.js",
   "typings": "index.d.ts",
   "dependencies": {
@@ -22,7 +22,7 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "test": "nyc mocha test/index.js --reporter dot",
-    "prepublish": "npm test && npm run"
+    "prepublish": "npm test && npm run build"
   },
   "nyc": {
     "check-coverage": true,
