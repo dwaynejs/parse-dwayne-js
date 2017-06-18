@@ -78,7 +78,24 @@ describe('transform', () => {
     }
   });
 
-  it('should return null sourceMap if the options is false', () => {
+  it('should change position correctly when the error is after the second paren', (done) => {
+    try {
+      transformJs('a + (1', { filename: 'index.js' });
+
+      done(new Error('Not thrown'));
+    } catch (err) {
+      strictEqual(err.message, 'Unexpected token, expected , (1:6)');
+      strictEqual(err.pos, 6);
+      deepStrictEqual(err.loc, {
+        line: 1,
+        column: 6
+      });
+
+      done();
+    }
+  });
+
+  it('should return null sourceMap if the options.sourceMap is false', () => {
     deepStrictEqual(transformJs('a + b', { sourceMap: false }), {
       code: `function (_) {
   return _.a + _.b;

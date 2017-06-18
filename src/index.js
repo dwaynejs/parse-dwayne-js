@@ -40,11 +40,15 @@ module.exports = (code, options) => {
       throw err;
     }
 
-    err.pos = err.pos - 1;
+    const offset = err.pos > code.length + 1
+      ? 2
+      : 1;
+
+    err.pos = err.pos - offset;
     err.loc = {
       line: err.loc.line,
       column: err.loc.line === 1
-        ? err.loc.column - 1
+        ? err.loc.column - offset
         : err.loc.column
     };
     err.message = err.message.replace(/\(\d+:\d+\)$/, () => (
