@@ -50,6 +50,7 @@ describe('transform', () => {
 
       done(new Error('Not thrown'));
     } catch (err) {
+      strictEqual(err.message, 'Unexpected token (1:4)');
       strictEqual(err.pos, 4);
       deepStrictEqual(err.loc, {
         line: 1,
@@ -59,12 +60,14 @@ describe('transform', () => {
       done();
     }
   });
+
   it('should throw a syntax error in other line', (done) => {
     try {
       transformJs('() => (\na + *\n)', { filename: 'index.js' });
 
       done(new Error('Not thrown'));
     } catch (err) {
+      strictEqual(err.message, 'Unexpected token (2:4)');
       strictEqual(err.pos, 12);
       deepStrictEqual(err.loc, {
         line: 2,

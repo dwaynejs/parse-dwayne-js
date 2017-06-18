@@ -47,6 +47,9 @@ module.exports = (code, options) => {
         ? err.loc.column - 1
         : err.loc.column
     };
+    err.message = err.message.replace(/\(\d+:\d+\)$/, () => (
+      `(${ err.loc.line }:${ err.loc.column })`
+    ));
 
     throw err;
   }
