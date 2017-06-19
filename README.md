@@ -31,7 +31,7 @@ const transformed = transformDwayneJs('Math.sin(a) + b', {
 ### API
 
 ```
-transformDwayneJs(options?: {
+transformDwayneJs(code: string, options?: {
   filename?: string = 'unknown',
   sourceMap?: boolean = true,
   unscopables?: string[] = ['require'],

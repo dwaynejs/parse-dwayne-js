@@ -16,7 +16,7 @@ export interface SourceMap {
   file?: string;
 }
 
-export = function (options: Options): {
+export = function (code: string, options?: Options): {
   code: string,
   map: SourceMap,
   vars: string[]
