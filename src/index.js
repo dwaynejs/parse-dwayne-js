@@ -60,6 +60,7 @@ module.exports = (code, options) => {
 
   let uid = '_';
   let funcNode;
+  let generatedThisVar = false;
   const used = {};
   const nodes = [];
 
@@ -107,6 +108,10 @@ module.exports = (code, options) => {
             && isCustomVar(path.parent.property.name)
           ) {
             used[path.parent.property.name] = true;
+          }
+
+          if (options.keepScope) {
+            generatedThisVar = true;
           }
 
           path.replaceWith(
@@ -181,11 +186,12 @@ module.exports = (code, options) => {
   generated.map.sourcesContent = [code];
 
   return {
-    vars: _.keys(used),
     code: generated.code,
     map: options.sourceMap
       ? generated.map
-      : null
+      : null,
+    vars: _.keys(used),
+    generatedThisVar
   };
 };
 

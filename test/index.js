@@ -101,7 +101,8 @@ describe('transform', () => {
   return _.a + _.b;
 }`,
       map: null,
-      vars: ['a', 'b']
+      vars: ['a', 'b'],
+      generatedThisVar: false
     });
   });
 });

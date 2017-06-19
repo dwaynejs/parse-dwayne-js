@@ -40,7 +40,8 @@ transformDwayneJs(code: string, options?: {
 }): {
   code: string,
   map: SourceMap | null,
-  vars: string[]
+  vars: string[],
+  generatedThisVar: boolean
 }
 ```
 
@@ -55,4 +56,9 @@ the variables with the scope var.
 `options.keepScope` is set to `true` all occurrences of `this` are
 replaced with this value.
 
-Returns transformed code, sourcemap and used scope vars.
+Returns an object with the following properties:
+
+* `code`: generated code.
+* `map`: generated sourcemap.
+* `vars`: used scope vars.
+* `generatedThisVar`: whether `options.thisUid` was generated or not.

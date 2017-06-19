@@ -19,5 +19,6 @@ export interface SourceMap {
 export = function (code: string, options?: Options): {
   code: string,
   map: SourceMap,
-  vars: string[]
+  vars: string[],
+  generatedThisVar: boolean
 };
