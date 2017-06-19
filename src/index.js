@@ -20,7 +20,7 @@ module.exports = (code, options) => {
   options.sourceMap = !!_.get(options, 'sourceMap', true);
   options.filename = _.get(options, 'filename', 'unknown');
   options.keepScope = _.get(options, 'keepScope', false);
-  options.thisUid = _.get(options, 'thisUid', '_this');
+  options.thisVarName = _.get(options, 'thisVarName', '_this');
 
   const newCode = `(${ code })`;
   let ast;
@@ -117,7 +117,7 @@ module.exports = (code, options) => {
           path.replaceWith(
             t.identifier(
               options.keepScope
-                ? options.thisUid
+                ? options.thisVarName
                 : uid
             )
           );
