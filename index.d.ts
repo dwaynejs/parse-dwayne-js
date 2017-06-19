@@ -3,7 +3,7 @@ export interface Options {
   sourceMap?: boolean;
   filename?: string;
   keepScope?: boolean;
-  thisUid?: string;
+  thisVarName?: string;
 }
 
 export interface SourceMap {

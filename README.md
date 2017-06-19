@@ -36,7 +36,7 @@ transformDwayneJs(code: string, options?: {
   sourceMap?: boolean = true,
   unscopables?: string[] = ['require'],
   keepScope?: boolean = false,
-  thisUid?: string = '_this'
+  thisVarName?: string = '_this'
 }): {
   code: string,
   map: SourceMap | null,
@@ -52,7 +52,7 @@ a sourcemap.
 vars that aren't meant to be in the block scope.
 * `options.keepScope` (default: false): if it is needed to prefix
 the variables with the scope var.
-* `options.thisUid` (default: `'_this'`): in the case when
+* `options.thisVarName` (default: `'_this'`): in the case when
 `options.keepScope` is set to `true` all occurrences of `this` are
 replaced with this value.
 
@@ -61,4 +61,4 @@ Returns an object with the following properties:
 * `code`: generated code.
 * `map`: generated sourcemap.
 * `vars`: used scope vars.
-* `generatedThisVar`: whether `options.thisUid` was generated or not.
+* `generatedThisVar`: whether `options.thisVarName` was generated or not.

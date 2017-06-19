@@ -1,6 +1,6 @@
 {
   "name": "transform-dwayne-js-expressions",
-  "version": "5.4.0",
+  "version": "5.4.1",
   "main": "lib/index.js",
   "typings": "index.d.ts",
   "dependencies": {
