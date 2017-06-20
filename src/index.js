@@ -61,6 +61,7 @@ module.exports = (code, options) => {
   let uid = '_';
   let funcNode;
   let generatedThisVar = false;
+  let generatedScopeParam;
   const used = {};
   const nodes = [];
 
@@ -82,9 +83,7 @@ module.exports = (code, options) => {
         path.replaceWith(
           funcNode = t.functionExpression(
             null,
-            [
-              t.identifier(uid)
-            ],
+            [],
             t.blockStatement([
               t.returnStatement(path.node)
             ])
@@ -112,6 +111,8 @@ module.exports = (code, options) => {
 
           if (options.keepScope) {
             generatedThisVar = true;
+          } else {
+            generatedScopeParam = true;
           }
 
           path.replaceWith(
@@ -140,6 +141,8 @@ module.exports = (code, options) => {
           used[path.node.name] = true;
         }
 
+        generatedScopeParam = true;
+
         const loc = path.node.loc.start;
 
         nodes.push({
@@ -155,6 +158,13 @@ module.exports = (code, options) => {
           ),
           name: path.node.name
         });
+      }
+    },
+    exit(path) {
+      if (path.node === funcNode && generatedScopeParam) {
+        path.node.params = [
+          t.identifier(uid)
+        ];
       }
     }
   });

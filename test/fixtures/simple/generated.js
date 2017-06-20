@@ -1,3 +1,3 @@
-function (_) {
+function () {
   return true;
 }
