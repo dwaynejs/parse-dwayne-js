@@ -19,9 +19,9 @@ module.exports = (code, options) => {
   options.unscopables = _.get(options, 'unscopables', ['require']);
   options.sourceMap = !!_.get(options, 'sourceMap', true);
   options.filename = _.get(options, 'filename', 'unknown');
-  options.keepScope = _.get(options, 'keepScope', false);
+  options.keepScope = !!_.get(options, 'keepScope', false);
   options.thisVarName = _.get(options, 'thisVarName', '_this');
-  options.useES6 = _.get(options, 'useES6', false);
+  options.useES6 = !!_.get(options, 'useES6', false);
 
   const newCode = `(${ code })`;
   let ast;
