@@ -36,7 +36,8 @@ transformDwayneJs(code: string, options?: {
   sourceMap?: boolean = true,
   unscopables?: string[] = ['require'],
   keepScope?: boolean = false,
-  thisVarName?: string = '_this'
+  thisVarName?: string = '_this',
+  useES6?: boolean = false
 }): {
   code: string,
   map: SourceMap | null,
@@ -55,6 +56,11 @@ the variables with the scope var.
 * `options.thisVarName` (default: `'_this'`): in the case when
 `options.keepScope` is set to `true` all occurrences of `this` are
 replaced with this value.
+* `options.useES6` (default: `false`): if it is needed to use es6:
+generating an arrow function instead of usual function and not
+generating `options.keepScope` identifier. It's better to set this
+option to `true` and leave transforming ES6 into ES5 to babel or
+other similar tools.
 
 Returns an object with the following properties:
 

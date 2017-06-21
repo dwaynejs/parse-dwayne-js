@@ -21,6 +21,7 @@ module.exports = (code, options) => {
   options.filename = _.get(options, 'filename', 'unknown');
   options.keepScope = _.get(options, 'keepScope', false);
   options.thisVarName = _.get(options, 'thisVarName', '_this');
+  options.useES6 = _.get(options, 'useES6', false);
 
   const newCode = `(${ code })`;
   let ast;
@@ -80,25 +81,35 @@ module.exports = (code, options) => {
         && path.parentPath.parentPath.isProgram()
         && path.node !== funcNode
       ) {
-        path.replaceWith(
+        if (options.useES6) {
+          funcNode = t.arrowFunctionExpression(
+            [],
+            path.node
+          );
+        } else {
           funcNode = t.functionExpression(
             null,
             [],
             t.blockStatement([
               t.returnStatement(path.node)
             ])
-          )
-        );
+          );
+        }
+
+        path.replaceWith(funcNode);
       }
 
       if (path.isThisExpression()) {
         let scope = path.scope;
 
-        while (scope.path.isArrowFunctionExpression()) {
+        while (
+          scope.path.isArrowFunctionExpression()
+          && scope.path.node !== funcNode
+        ) {
           scope = scope.parent;
         }
 
-        if (scope.path.node === funcNode) {
+        if (scope.path.node === funcNode && (!options.keepScope || !options.useES6)) {
           if (
             !options.keepScope
             && path.parentPath

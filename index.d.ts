@@ -4,6 +4,7 @@ export interface Options {
   filename?: string;
   keepScope?: boolean;
   thisVarName?: string;
+  useES6?: boolean;
 }
 
 export interface SourceMap {
