@@ -1,4 +1,4 @@
-const { deepStrictEqual, strictEqual, throws } = require('assert');
+const { deepStrictEqual, strictEqual } = require('assert');
 const _ = require('lodash');
 const fs = require('fs');
 const { decode } = require('sourcemap-codec');
