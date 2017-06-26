@@ -50,14 +50,18 @@ describe('transform', () => {
 
       done(new Error('Not thrown'));
     } catch (err) {
-      strictEqual(err.message, 'Unexpected token (1:4)');
-      strictEqual(err.pos, 4);
-      deepStrictEqual(err.loc, {
-        line: 1,
-        column: 4
-      });
+      try {
+        strictEqual(err.message, 'Unexpected token (1:4)');
+        strictEqual(err.pos, 4);
+        deepStrictEqual(err.loc, {
+          line: 1,
+          column: 4
+        });
 
-      done();
+        done();
+      } catch (err) {
+        done(err);
+      }
     }
   });
 
@@ -67,14 +71,18 @@ describe('transform', () => {
 
       done(new Error('Not thrown'));
     } catch (err) {
-      strictEqual(err.message, 'Unexpected token (2:4)');
-      strictEqual(err.pos, 12);
-      deepStrictEqual(err.loc, {
-        line: 2,
-        column: 4
-      });
+      try {
+        strictEqual(err.message, 'Unexpected token (2:4)');
+        strictEqual(err.pos, 12);
+        deepStrictEqual(err.loc, {
+          line: 2,
+          column: 4
+        });
 
-      done();
+        done();
+      } catch (err) {
+        done(err);
+      }
     }
   });
 
@@ -84,14 +92,18 @@ describe('transform', () => {
 
       done(new Error('Not thrown'));
     } catch (err) {
-      strictEqual(err.message, 'Unexpected token, expected , (1:6)');
-      strictEqual(err.pos, 6);
-      deepStrictEqual(err.loc, {
-        line: 1,
-        column: 6
-      });
+      try {
+        strictEqual(err.message, 'Unexpected token, expected , (1:6)');
+        strictEqual(err.pos, 6);
+        deepStrictEqual(err.loc, {
+          line: 1,
+          column: 6
+        });
 
-      done();
+        done();
+      } catch (err) {
+        done(err);
+      }
     }
   });
 
