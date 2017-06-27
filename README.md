@@ -61,6 +61,9 @@ generating an arrow function instead of usual function and not
 generating `options.keepScope` identifier. It's better to set this
 option to `true` and leave transforming ES6 into ES5 to babel or
 other similar tools.
+* `options.startLine` (default: `1`): used for error messages.
+* `options.startColumn` (default: `0`): used for error messages.
+* `options.startPosition` (default: `0`): used for error messages.
 
 Returns an object with the following properties:
 

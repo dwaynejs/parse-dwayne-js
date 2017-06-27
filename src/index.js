@@ -22,6 +22,9 @@ module.exports = (code, options) => {
   options.keepScope = !!_.get(options, 'keepScope', false);
   options.thisVarName = _.get(options, 'thisVarName', '_this');
   options.useES6 = !!_.get(options, 'useES6', false);
+  options.startLine = _.get(options, 'startLine', 1);
+  options.startColumn = _.get(options, 'startColumn', 0);
+  options.startPosition = _.get(options, 'startColumn', 0);
 
   const newCode = `(${ code })`;
   let ast;
@@ -44,13 +47,19 @@ module.exports = (code, options) => {
     const offset = err.pos > code.length + 1
       ? 2
       : 1;
-
-    err.pos = err.pos - offset;
-    err.loc = {
+    const location = {
       line: err.loc.line,
       column: err.loc.line === 1
         ? err.loc.column - offset
         : err.loc.column
+    };
+
+    err.pos = options.startPosition + err.pos - offset;
+    err.loc = {
+      line: options.startLine + location.line - 1,
+      column: location.line === 1
+        ? options.startColumn + location.column
+        : location.column
     };
     err.message = err.message.replace(/\(\d+:\d+\)$/, () => (
       `(${ err.loc.line }:${ err.loc.column })`

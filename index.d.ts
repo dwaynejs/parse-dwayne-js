@@ -5,6 +5,9 @@ export interface Options {
   keepScope?: boolean;
   thisVarName?: string;
   useES6?: boolean;
+  startLine?: number;
+  startColumn?: number;
+  startPosition?: number;
 }
 
 export interface SourceMap {
