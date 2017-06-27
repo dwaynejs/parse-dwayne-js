@@ -24,7 +24,7 @@ module.exports = (code, options) => {
   options.useES6 = !!_.get(options, 'useES6', false);
   options.startLine = _.get(options, 'startLine', 1);
   options.startColumn = _.get(options, 'startColumn', 0);
-  options.startPosition = _.get(options, 'startColumn', 0);
+  options.startPosition = _.get(options, 'startPosition', 0);
 
   const newCode = `(${ code })`;
   let ast;
