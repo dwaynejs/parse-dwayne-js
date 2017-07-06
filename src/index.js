@@ -201,7 +201,7 @@ module.exports = (code, options) => {
   const generated = fixCodeAndMap({
     code: generatedCode
       .replace(/;*$/g, '')
-      .replace(/^\([\s\S]*\)$/, (value) => {
+      .replace(/^\(function[\s\S]*\)$/, (value) => {
         generatedFirstParen = true;
 
         return value.slice(1, -1)
