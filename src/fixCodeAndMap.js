@@ -40,7 +40,7 @@ module.exports = ({ code, map, source, nodes, uid, generatedFirstParen }) => {
         column,
         source
       })
-      .forEach(({ line, column }) => {
+      .some(({ line, column }) => {
         const localMappings = mappings[line - 1];
         const foundIx = _.findIndex(localMappings, (mapping) => (
           mapping[0] === column && mapping[4] === nameIx && !mapping.handled
@@ -88,6 +88,8 @@ module.exports = ({ code, map, source, nodes, uid, generatedFirstParen }) => {
         map.mappings = encode(mappings);
         lines = new LinesAndColumns(code);
         smc = new SourceMapConsumer(map);
+
+        return true;
       });
   });
 
